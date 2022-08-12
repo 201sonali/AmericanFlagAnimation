@@ -1,0 +1,71 @@
+# Date Created: 12/2/2020
+# Date Last Modified: 12/4/2020
+# Description of Program: Using Turtle Graphics to draw the U.S. 1921 Flag (6x8 stars)
+
+import turtle
+
+
+def fillWhiteStar(ttl, x, y, length):
+    # Draw and fill white start with arm length = length and leftmost point at (x, y)
+    ttl.penup()
+    ttl.goto(x, y)
+    ttl.setheading(0)
+    ttl.pendown()
+    white = (255, 255, 255)
+    ttl.pencolor(white)
+    ttl.fillcolor(white)
+    ttl.begin_fill()
+    for i in range(5):
+        ttl.forward(length)
+        ttl.right(144)
+    ttl.end_fill()
+
+
+def fillRectangle(ttl, x, y, width, height, rgbTuple):
+    # Draw a rectangle of dimensions width and height, with bottom left corner at (x, y), and
+    # filled with color specified by the rgb triple
+    ttl.penup()
+    ttl.goto(x, y)
+    ttl.setheading(0)
+    ttl.pendown()
+    ttl.pencolor(rgbTuple)
+    ttl.fillcolor(rgbTuple)
+    ttl.begin_fill()
+    for count in range(2):
+        ttl.forward(width)
+        ttl.left(90)
+        ttl.forward(height)
+        ttl.left(90)
+    ttl.end_fill()
+
+
+myBlue = (0, 32, 91)
+myRed = (191, 13, 62)
+white = (255, 255, 255)
+
+Joe = turtle.Turtle()
+Joe.screen.colormode(255)
+
+# stripe region
+ystart = 0
+for i in range(13):
+    if i % 2 == 0:
+        fillRectangle(Joe, 0, ystart, 500, 20, myRed)
+    else:
+        fillRectangle(Joe, 0, ystart, 500, 20, white)
+    ystart += 20
+
+# blue rectangle
+fillRectangle(Joe, 0, 120, 185, 140, myBlue)
+
+# white stars
+ystart = 135
+for i in range(6):
+    xstart = 5
+    for i in range(8):
+        fillWhiteStar(Joe, xstart, ystart, 15)
+        xstart += 22.5
+    ystart += 22.5
+
+Joe.hideturtle()
+turtle.done()
